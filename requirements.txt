@@ -1,0 +1,5 @@
+opencv-python-headless~=4.10.0.84
+pure-python-adb==0.3.0.dev0
+apache-airflow~=2.10.2
+numpy~=2.1.2
+pendulum~=3.0.0
