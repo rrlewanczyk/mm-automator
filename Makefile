@@ -1,3 +1,3 @@
 run:
-	adb -a nodaemon server start &> /dev/null &
-	podman compose up
+	nohup adb -a nodaemon server start &> /dev/null &
+	docker compose up -d 

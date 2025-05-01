@@ -19,8 +19,8 @@ class PhoneController(ABC):
         self.device = self.adb.device(self.get_phone_id())
 
     def unlock_phone(self):
+        self.device.shell("input keyevent 26")
         self.device.shell("input keyevent 82")
-        self.device.shell("input swipe 0 500 0 0")
 
     def lock_phone(self):
         self.device.shell("input keyevent 26")

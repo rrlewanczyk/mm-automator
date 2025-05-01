@@ -26,14 +26,15 @@ DAG_ID = "hourly_gift_receiver"
 )
 def HourlyGiftReceiverDag():
     from match_masters.controller.mm_phone_controller import MMPhoneController
-    phone_controller = MMPhoneController()
 
     @task
     def unlock_phone():
+        phone_controller = MMPhoneController()
         phone_controller.unlock_phone()
 
     @task
     def run_match_masters():
+        phone_controller = MMPhoneController()
         phone_controller.open_match_masters()
 
     @task(
@@ -41,6 +42,7 @@ def HourlyGiftReceiverDag():
         retry_delay=timedelta(seconds=5),
     )
     def try_to_enter_shop():
+        phone_controller = MMPhoneController()
         is_shop_available = phone_controller.try_to_enter_shop()
         if not is_shop_available:
             raise RuntimeError("Could not enter shop")
@@ -50,12 +52,14 @@ def HourlyGiftReceiverDag():
         retry_delay=timedelta(seconds=5),
     )
     def try_to_init_receive_gift():
+        phone_controller = MMPhoneController()
         is_init_receive_gift_available = phone_controller.try_to_init_gift_receive()
         if not is_init_receive_gift_available:
             raise RuntimeError("Could not init receive gift")
 
     @task
     def receive_gift():
+        phone_controller = MMPhoneController()
         phone_controller.tap_gift()
         time.sleep(4)
         phone_controller.tap_receive_gift()
@@ -64,12 +68,14 @@ def HourlyGiftReceiverDag():
         trigger_rule=TriggerRule.ALL_DONE
     )
     def close_match_masters():
+        phone_controller = MMPhoneController()
         phone_controller.close_match_masters()
 
     @task(
         trigger_rule=TriggerRule.ALL_DONE
     )
     def lock_phone():
+        phone_controller = MMPhoneController()
         phone_controller.lock_phone()
 
     handle_failure = TriggerDagRunOperator(
