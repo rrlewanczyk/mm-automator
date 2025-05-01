@@ -13,7 +13,7 @@ class MMPhoneController(PhoneController):
         self.shop_detector = ShopDetector()
 
     def get_phone_id(self):
-        return "ZY326QS87X"
+        return "d7ad18ff"
 
     def get_client_host(self):
         return "host.docker.internal"

@@ -22,6 +22,7 @@ DAG_ID = "hourly_gift_receiver"
     schedule=None,
     start_date=pendulum.datetime(2021, 1, 1, tz="UTC"),
     catchup=False,
+    max_active_runs=1, 
     tags=["match-masters"],
 )
 def HourlyGiftReceiverDag():
@@ -88,7 +89,7 @@ def HourlyGiftReceiverDag():
         task_id="handle_success",
         trigger_rule=TriggerRule.ALL_SUCCESS,
         trigger_dag_id=DAG_ID,
-        logical_date=pendulum.now() + timedelta(hours=3, minutes=5),
+        logical_date=pendulum.now() + timedelta(hours=3, minutes=1),
     )
 
 

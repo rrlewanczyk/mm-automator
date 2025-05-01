@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 
+import time 
 import cv2
 import numpy as np
 from ppadb.client import Client as AdbClient
@@ -20,7 +21,8 @@ class PhoneController(ABC):
 
     def unlock_phone(self):
         self.device.shell("input keyevent 26")
-        self.device.shell("input keyevent 82")
+        time.sleep(2) 
+        self.device.shell("input touchscreen swipe 0 1000 0 0")
 
     def lock_phone(self):
         self.device.shell("input keyevent 26")
